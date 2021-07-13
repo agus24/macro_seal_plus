@@ -154,6 +154,7 @@ class CegelFarm():
         print("\n".join(hotkey))
 
     def start(self):
+        self.print_hotkey()
         while True:
             if keyboard.is_pressed('ctrl'):
                 if keyboard.is_pressed('-'):
