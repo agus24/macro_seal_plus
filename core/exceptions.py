@@ -1,0 +1,2 @@
+class ExitMenuException(Exception):
+    pass
