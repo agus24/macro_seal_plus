@@ -4,7 +4,14 @@ import zipfile
 
 
 def run_update():
-    print("Downloading Update..")
+    if not should_update():
+        return
+
+    update = input("There is new Script Version. Do you want to update? [Y/n]") or "Y"
+    if update not in ["y", "Y"]:
+        return
+
+    print("Downloading Update")
     url = "https://github.com/agus24/macro_seal_plus/archive/refs/heads/master.zip"
     r = requests.get(url, allow_redirects=True)
     with open("update.zip", 'wb') as file:
@@ -13,21 +20,28 @@ def run_update():
     with zipfile.ZipFile("update.zip", 'r') as zip_ref:
         zip_ref.extractall("./update")
 
-    with open("./version.txt", 'r') as file:
-        current_version = int(file.readline())
-
-    with open("./update/macro_seal_plus-master/version.txt") as file:
-        new_version = int(file.readline())
-
-    if current_version != new_version:
-        copytree("./update/macro_seal_plus-master", "./")
+    copytree("./update/macro_seal_plus-master", "./")
 
     if not os.path.isfile('./config.py'):
         shutil.copyfile("./config.tmp.py", "./config.py")
 
     shutil.rmtree("./update")
     os.remove("update.zip")
+
     print(f"Updated.")
+
+
+def should_update():
+    with open("./version.txt", 'r') as file:
+        current_version = int(file.readline())
+
+    url = "https://raw.githubusercontent.com/agus24/macro_seal_plus/master/version.txt"
+    new_version = int(requests.get(url).json())
+
+    if current_version != new_version:
+        return True
+    
+    return False
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
