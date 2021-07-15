@@ -41,6 +41,10 @@ def run_update(force = False):
 
 
 def should_update():
+    if not os.path.isfile('./config.py'):
+        run_update(force=True)
+        return
+
     with open("./version.txt", 'r') as file:
         current_version = int(file.readline())
 
