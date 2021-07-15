@@ -156,10 +156,10 @@ def closeBSIfOpen() :
         k.send_keys("{VK_ESCAPE}")
 
 def checkBank():
-    return seal.get_freeze_dialog() == DIALOG['bank']
+    return seal.get_dialog() == DIALOG['bank']
 
 def checkShop():
-    return seal.get_freeze_dialog() == DIALOG['shop']
+    return seal.get_dialog() == DIALOG['shop']
 
 def checkItemBank():
     return seal.get_item_bank_status() == 1

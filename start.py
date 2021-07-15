@@ -53,11 +53,9 @@ def start_menu():
             from macro.cegel_farm import CegelFarm
             CegelFarm().start()
         elif inputData == "2":
-            print("opening ant.py")
             import macro.ant_farm
         elif inputData == "3":
-            print("opening auto_tempa.py")
-            import macro.auto_tempa
+            import macro.auto_refine
     except ExitMenuException as e:
         print("Exited...")
     except Exception as e:

@@ -3,3 +3,4 @@ logs/
 test/
 test.py
 config.py
+config.old.py

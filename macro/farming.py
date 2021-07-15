@@ -75,7 +75,7 @@ class Farming():
         sleep(0.1)
 
     def close_if_shop_open(self):
-        while seal.get_freeze_dialog() == DIALOG['shop']:
+        while seal.get_dialog() == DIALOG['shop']:
             macro.moveMouse(257, 87)
             sleep(0.2)
             macro.mouseClick()

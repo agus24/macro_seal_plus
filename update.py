@@ -3,13 +3,14 @@ import requests
 import zipfile
 
 
-def run_update():
-    if not should_update():
-        return
+def run_update(force = False):
+    if not force:
+        if not should_update():
+            return
 
-    update = input("There is new Script Version. Do you want to update? [Y/n]") or "Y"
-    if update not in ["y", "Y"]:
-        return
+        update = input("There is new Script Version. Do you want to update? [Y/n] ") or "Y"
+        if update not in ["y", "Y"]:
+            return
 
     print("Downloading Update")
     url = "https://github.com/agus24/macro_seal_plus/archive/refs/heads/master.zip"
@@ -17,13 +18,21 @@ def run_update():
     with open("update.zip", 'wb') as file:
         file.write(r.content)
 
+    
+    print("Extracting File.")
     with zipfile.ZipFile("update.zip", 'r') as zip_ref:
         zip_ref.extractall("./update")
 
     copytree("./update/macro_seal_plus-master", "./")
 
+    print("Copying Config.")
     if not os.path.isfile('./config.py'):
         shutil.copyfile("./config.tmp.py", "./config.py")
+    else:
+        replace = input("Do you want to replace config file? [Y/n] ") or "Y"
+        if replace in ["Y", "y"]:
+            shutil.copyfile("./config.py", "./config.old.py")
+            shutil.copyfile("./config.tmp.py", "./config.py")
 
     shutil.rmtree("./update")
     os.remove("update.zip")

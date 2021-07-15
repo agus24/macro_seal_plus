@@ -146,12 +146,12 @@ def getCurrentTargetArrow():
     return pm.read_int(baseAddr)
 
 
-def get_freeze_dialog():
+def get_dialog():
     baseAddr = int(0x400000) + int(0x002D3DF4)
     return pm.read_int(baseAddr)
 
 
-def set_freeze_dialog(value):
+def set_dialog(value):
     baseAddr = int(0x400000) + int(0x002D3DF4)
     pm.write_int(baseAddr, value)
 

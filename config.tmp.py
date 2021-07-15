@@ -12,3 +12,10 @@ log_to_file = True
 username = "",
 password = ""
 password_bank = ""
+
+# auto refine
+atb_purchase_qty = 9  # qty atb per beli barang
+atb_per_purchase = 4  # qty atb yang digunakan
+wrs_brs_diamond_per_purchase = 5  # wrs diamond sekali beli
+pd_grs_per_purchase = 5  # pd grs sekali beli
+max_tempa = 11  # target tempa (kalo 11 sampe +11 klo 12 sampe +12)
