@@ -51,6 +51,9 @@ def should_update():
     url = "https://raw.githubusercontent.com/agus24/macro_seal_plus/master/version.txt"
     new_version = int(requests.get(url).json())
 
+    print("Current Version : ", current_version)
+    print("Server Version : ", new_version)
+
     if current_version != new_version:
         return True
     
