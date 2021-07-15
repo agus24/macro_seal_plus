@@ -187,7 +187,7 @@ class Farming():
         if len(srs_ns):
             self.moveToBank()
 
-    def moveToBank(self, slot):
+    # def moveToBank(self, slot):
 
 
     def print_hotkey(self):
