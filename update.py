@@ -13,7 +13,15 @@ def run_update():
     with zipfile.ZipFile("update.zip", 'r') as zip_ref:
         zip_ref.extractall("./update")
 
-    copytree("./update/macro_seal_plus-master", "./")
+    with open("./version.txt", 'r') as file:
+        current_version = int(file.readline())
+
+    with open("./update/macro_seal_plus-master/version.txt") as file:
+        new_version = int(file.readline())
+
+    if current_version != new_version:
+        copytree("./update/macro_seal_plus-master", "./")
+
     shutil.rmtree("./update")
     os.remove("update.zip")
     print(f"Updated.")
