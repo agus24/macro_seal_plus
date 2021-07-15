@@ -12,8 +12,3 @@ log_to_file = True
 username = "",
 password = ""
 password_bank = ""
-
-try:
-    import config_local
-except ImportError:
-    pass

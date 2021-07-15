@@ -7,11 +7,14 @@ from core.exceptions import ExitMenuException
 from window.ui import MainMenu
 
 from update import run_update
-import config
 
 os.system('cls')
 
-if config.update_before_start:
+try:
+    import config
+    if config.update_before_start:
+        run_update()
+except:
     run_update()
 
 print_waiting_process = True
