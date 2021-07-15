@@ -7,9 +7,12 @@ from core.exceptions import ExitMenuException
 from window.ui import MainMenu
 
 from update import run_update
+import config
 
 os.system('cls')
-run_update()
+
+if config.update_before_start:
+    run_update()
 
 print_waiting_process = True
 print_waiting_memory = True

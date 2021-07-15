@@ -22,6 +22,8 @@ def run_update():
     if current_version != new_version:
         copytree("./update/macro_seal_plus-master", "./")
 
+    if not os.path.isfile('./config.local.py'):
+        shutil.copyfile("./config.py", "./config_local.py")
     shutil.rmtree("./update")
     os.remove("update.zip")
     print(f"Updated.")

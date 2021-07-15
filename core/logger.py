@@ -1,4 +1,5 @@
 import os
+import config
 from datetime import datetime
 
 
@@ -15,4 +16,5 @@ class Logger:
             time = datetime.strftime(datetime.now(), '%Y-%m-%d_%H:%M')
             output = f"[{time}][{self.user_id}] {text}"
             print(output)
-            file.write(f"{output}\n")
+            if config.log_to_file:
+                file.write(f"{output}\n")

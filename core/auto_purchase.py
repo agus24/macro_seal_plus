@@ -1,9 +1,6 @@
 import requests
+from config import *
 
-
-username = "agus244"
-password = "rahasia"
-password_bank = "1111"
 
 ITEM = {
     "pd": 33,

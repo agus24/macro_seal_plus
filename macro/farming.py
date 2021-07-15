@@ -9,6 +9,8 @@ from core.logger import Logger
 from core.constants import *
 from core.exceptions import ExitMenuException
 
+import config
+
 
 class Farming():
     def __init__(self):
@@ -30,7 +32,7 @@ class Farming():
         self.logger.log("Starting Cegel Hunt")
 
         self.excluded_items = DONT_SELL
-        self.excluded_items.extend([SRS, NS])
+        self.excluded_items.extend(config.dont_sell_items)
 
     def check_click_gap(self):
         self.current_time = datetime.now()
@@ -171,7 +173,7 @@ class Farming():
                 if inven['qty'] == 0 and inven['item_id'] != 0:
                     prepare_sell.append(inven['slot'])
 
-                if inven['item_id'] == NS or inven['item_id'] == SRS:
+                if inven['item_id'] in should_save_to_bank:
                     srs_ns.append(inven['slot'])
 
         print("prepare sell : " + str(prepare_sell))
@@ -184,6 +186,9 @@ class Farming():
 
         if len(srs_ns):
             self.moveToBank()
+
+    def moveToBank(self, slot):
+
 
     def print_hotkey(self):
         hotkey = [
