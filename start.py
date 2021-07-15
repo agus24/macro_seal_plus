@@ -41,9 +41,9 @@ def start_menu():
     print("MACRO READY!")
     print(
         "Menu: \n",
-        "1. cegel\n",
-        "2. ant nest\n",
-        "3. auto tempa\n",
+        "1. Cegel Farming\n",
+        "2. General Farming\n",
+        "3. Auto Refine\n",
         "0. ts\n"
     )
     inputData = input("Answer ? ") or "0"
@@ -53,9 +53,11 @@ def start_menu():
             from macro.cegel_farm import CegelFarm
             CegelFarm().start()
         elif inputData == "2":
-            import macro.ant_farm
+            from macro.farming import Farming
+            Farming().start()
         elif inputData == "3":
-            import macro.auto_refine
+            from macro.auto_refine import AutoRefine
+            AutoRefine().start()
     except ExitMenuException as e:
         print("Exited...")
     except Exception as e:
@@ -85,3 +87,5 @@ while True:
         if print_waiting_process:
             print('Waiting Process...')
             print_waiting_process = False
+    
+    time.sleep(0.2)

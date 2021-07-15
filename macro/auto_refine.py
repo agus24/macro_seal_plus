@@ -13,7 +13,7 @@ from core.constants import *
 from core.logger import Logger
 
 
-class AutoTempa:
+class AutoRefine:
     def __init__(self):
         print("auto_refine.py")
         self.user_id = seal.getUserId()
