@@ -83,7 +83,7 @@ class Farming():
     def need_buff(self):
         current_time = datetime.now()
         if self.next_buff_time <= current_time:
-            self.next_buff_time = datetime.now() + timedelta(hours=1)
+            self.next_buff_time = datetime.now() + timedelta(minutes=40)
             return True
         
         return False
