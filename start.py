@@ -1,4 +1,5 @@
 import os
+import importlib
 import pymem
 import time
 
@@ -37,29 +38,34 @@ def get_memory_availability():
     addr = pointer + int(0x5f0)
     return pymem.memory.read_int(pc, addr)
 
+def load_module(inputData):
+    from macro import cegel_farm, farming, auto_refine
+
+    importlib.reload(cegel_farm)
+    importlib.reload(farming)
+    importlib.reload(auto_refine)
+
+    if inputData == "1":
+        cegel_farm.CegelFarm().start()
+    elif inputData == "2":
+        farming.Farming().start()
+    elif inputData == "3":
+        auto_refine.AutoRefine().start()
+
 def start_menu():
     print("MACRO READY!")
     print(
         "Menu: \n",
         "1. Cegel Farming\n",
         "2. General Farming\n",
-        "3. Auto Refine\n",
-        "0. ts\n"
+        "3. Auto Refine\n"
     )
     inputData = input("Answer ? ") or "0"
 
     try:
-        if inputData == "1":
-            from macro.cegel_farm import CegelFarm
-            CegelFarm().start()
-        elif inputData == "2":
-            from macro.farming import Farming
-            Farming().start()
-        elif inputData == "3":
-            from macro.auto_refine import AutoRefine
-            AutoRefine().start()
+        load_module(inputData)
     except ExitMenuException as e:
-        print("Exited...")
+        print("Exited...\n")
     except Exception as e:
         print("Something wrong. Exiting..")
         print(e)

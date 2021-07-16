@@ -2,7 +2,7 @@ import pyautogui
 from core import seal
 from time import sleep
 import pywinauto as p
-from core.constants import DIALOG
+from core.constants import DIALOG, REFINE_OK_CONFIRM, BANK_INVENTORY
 
 k = p.keyboard
 delay = 0.5
@@ -58,54 +58,82 @@ def sell(x, y) :
     mouseClick()
     sleep(delay * 2)
 
+
 def sellSlot1():
     sell(308, 143)
+
 
 def sellSlot2():
     sell(348, 143)
 
+
 def sellSlot3():
     sell(377, 143)
+
 
 def sellSlot4():
     sell(409, 143)
 
+
 def sellSlot5():
     sell(441, 143)
 
-def itemToBank():
-    seal.moveMouse(790, 228)
+
+def open_bank():
+    seal.moveMouse(563, 461)
     sleep(delay)
+
     mouseClick()
     sleep(delay)
+
+    seal.moveMouse(*REFINE_OK_CONFIRM)
+    sleep(delay)
+
+    mouseClick()
+    sleep(delay)
+
+    k.send_keys( '{1 down}' '{1 up}' )
+    k.send_keys( '{1 down}' '{1 up}' )
+    k.send_keys( '{1 down}' '{1 up}' )
+    k.send_keys( '{1 down}' '{1 up}' )
+    sleep(delay)
+
     k.send_keys('{ENTER}')
     sleep(delay)
-    k.send_keys( '{r down}' '{r up}' )
-    k.send_keys( '{a down}' '{a up}' )
-    k.send_keys( '{h down}' '{h up}' )
-    k.send_keys( '{a down}' '{a up}' )
-    k.send_keys( '{s down}' '{s up}' )
-    k.send_keys( '{i down}' '{i up}' )
-    k.send_keys( '{a down}' '{a up}' )
+
+
+def close_bank():
+    seal.moveMouse(477, 563)
+    mouseClick()
+
+    seal.moveMouse(329, 120)
+    mouseClick()
+
+    p.keyboard.send_keys("{VK_ESCAPE}")
+
+
+def move_to_bank(slot):
+    seal.moveMouse(*BANK_INVENTORY[slot])
     sleep(delay)
-    k.send_keys('{ENTER}')
-    seal.moveMouse(334, 119)
-    sleep(delay)
+
     mouseDown()
     sleep(delay)
-    seal.moveMouse(117, 227)
+
+    seal.moveMouse(197, 272)
     sleep(delay)
+
     mouseUp()
-    seal.moveMouse(419, 319)
+    seal.moveMouse(449, 319)
+    sleep(delay)
+
     mouseClick()
-    mouseClick()
+    seal.moveMouse(391, 392)
+    sleep(delay)
+
     mouseClick()
     k.send_keys('{ENTER}')
-    seal.moveMouse(416, 451)
-    mouseClick()
-    seal.moveMouse(499, 299)
-    mouseClick()
-    closeBSIfOpen()
+    sleep(delay)
+
 
 def sellTrashItem() :
     openShop()

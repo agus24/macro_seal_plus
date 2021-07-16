@@ -56,7 +56,7 @@ def should_update():
 
     if current_version != new_version:
         return True
-    
+
     return False
 
 

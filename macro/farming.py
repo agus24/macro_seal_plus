@@ -14,7 +14,7 @@ import config
 
 class Farming():
     def __init__(self):
-        print("farming.py")
+        print("\nGeneral Farming")
         self.inventory = []
         self.keyboard = p.keyboard
         self.target = 0
@@ -27,9 +27,9 @@ class Farming():
         self.click_gap = 5
 
         self.user_id = seal.getUserId()
-        self.logger = Logger(self.user_id, "cegelcmd_")
+        self.logger = Logger(self.user_id, "general_farming_")
 
-        self.logger.log("Starting Cegel Hunt")
+        self.logger.log("Starting General Farming")
 
         self.excluded_items = DONT_SELL
         self.excluded_items.extend(config.dont_sell_items)
@@ -133,20 +133,13 @@ class Farming():
             self.keyboard.send_keys('{SPACE}')
             self.keyboard.send_keys('{SPACE}')
 
-        if inventory[32]['qty'] < 150 or inventory[33]['qty'] < 150:
-            self.buyPotion()
-            sleep(0.5)
-        for i in range(0, 8):
-            if inventory[i]['qty'] >= 900:
-                self.logger.log('Item > 900.')
-                self.logger.log('Selling Item.')
-                self.sellItem()
-                self.logger.log("Hunt Continue..")
+        self.check_item()
+        self.check_potion()
+
         if keyboard.is_pressed('c'):
             self.logger.log('stopping.')
             self.force_stop = True
 
-    
     def check_potion(self):
         inventory = seal.getItemValue()
         should_buy_potion = False
@@ -155,16 +148,15 @@ class Farming():
                 should_buy_potion = inven['qty'] < 150
 
         if should_buy_potion:
-            logger.log("buying potion")
+            self.logger.log("buying potion")
             self.buyPotion()
             sleep(0.5)
-
 
     def check_item(self):
         inventory = seal.getItemValue()
         should_sell = []
         prepare_sell = []
-        srs_ns = []
+        save_to_bank = []
         for inven in inventory:
             if inven['item_id'] not in self.excluded_items:
                 if inven['qty'] > 900:
@@ -173,26 +165,34 @@ class Farming():
                 if inven['qty'] == 0 and inven['item_id'] != 0:
                     prepare_sell.append(inven['slot'])
 
-                if inven['item_id'] in should_save_to_bank:
-                    srs_ns.append(inven['slot'])
+            if inven['item_id'] in config.should_save_to_bank:
+                save_to_bank.append(inven['slot'])
 
-        print("prepare sell : " + str(prepare_sell))
+        print("Prepared to bank: " + str(save_to_bank))
+        print("Prepared to sell: " + str(prepare_sell))
         if len(prepare_sell) > 6:
             should_sell.extend(prepare_sell)
 
+        print("Should Sell: " + str(should_sell))
         if should_sell:
-            logger.log("SELL ITEM : " + str(should_sell))
+            self.logger.log("SELL ITEM : " + str(should_sell))
             self.sellItem(should_sell)
 
-        if len(srs_ns):
-            self.moveToBank()
+        if len(save_to_bank) > 3:
+            self.logger.log("moving_to_bank " + str(save_to_bank))
+            self.move_to_bank(save_to_bank)
 
-    # def moveToBank(self, slot):
-
+    def move_to_bank(self, slots):
+        macro.open_bank()
+        for slot in slots:
+            macro.move_to_bank(slot)
+        macro.close_bank()
 
     def print_hotkey(self):
         hotkey = [
+            "\n",
             "[CTRL + -] START MACRO",
+            "[CTRL + ] ] Set Multiple Target",
             "[CTRL + =] EXIT",
             "[-] SHOW CURRENT TARGET",
             "[/] REGISTER TARGET",
@@ -210,7 +210,7 @@ class Farming():
                         sleep(0.2)
                         return
 
-                    self.logger.log("Start Cegel Hunt..")
+                    self.logger.log("Start General Farming..")
                     self.force_stop = False
                     print("Targets: " + str(self.targets))
                     print("Hold c to stop hunting")
@@ -224,6 +224,15 @@ class Farming():
                     self.logger.log('Script Stopped.')
                     raise ExitMenuException
                     return
+
+                if keyboard.is_pressed("["):
+                    self.check_item()
+
+                if keyboard.is_pressed("]"):
+                    data = input("Insert Your targeted Monster : ")
+                    self.targets = [int(dt) for dt in data.split(",")]
+                    self.current_target = 0
+                    print(self.targets)
 
             if keyboard.is_pressed("-"):
                 print(str(self.targets))
