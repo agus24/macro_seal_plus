@@ -70,4 +70,9 @@ class Window:
         return button
 
     def loop(self):
+        print("loop")
         self.window.mainloop()
+
+    def force_stop(self):
+        print("quit")
+        self.window.destroy()

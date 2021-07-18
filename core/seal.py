@@ -104,7 +104,7 @@ def getUserId():
 
 
 def spamSkill():
-    baseAddr = int(0x400000) + int(0x003DB34C)
+    baseAddr = int(0x400000) + int(0x002E9A24)
     pointer = pm.read_int(baseAddr)
     spamAddr = pointer + int(0x1D00)
     val = pm.write_int(spamAddr, 3)

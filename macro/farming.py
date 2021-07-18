@@ -122,7 +122,6 @@ class Farming():
                 return
 
             inventory = seal.getItemValue()
-            self.keyboard.send_keys('{SPACE}')
             self.keyboard.send_keys('{F1}')
             self.keyboard.send_keys('{F2}')
             self.keyboard.send_keys('{F3}')
@@ -130,6 +129,7 @@ class Farming():
             self.keyboard.send_keys('{F6}')
             self.keyboard.send_keys('{F7}')
             self.keyboard.send_keys('{F8}')
+            self.keyboard.send_keys('{SPACE}')
             self.keyboard.send_keys('{SPACE}')
             self.keyboard.send_keys('{SPACE}')
 
@@ -194,7 +194,7 @@ class Farming():
             "[CTRL + -] START MACRO",
             "[CTRL + ] ] Set Multiple Target",
             "[CTRL + =] EXIT",
-            "[-] SHOW CURRENT TARGET",
+            "[-] SHOW / CHECK CURRENT TARGET",
             "[/] REGISTER TARGET",
             "[.] RESET TARGET"
         ]
@@ -236,6 +236,10 @@ class Farming():
 
             if keyboard.is_pressed("-"):
                 print(str(self.targets))
+                for target in self.targets:
+                    seal.setTarget(target)
+                    sleep(0.5)
+
                 sleep(0.2)
 
             if keyboard.is_pressed("/"):
