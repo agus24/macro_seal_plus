@@ -5,7 +5,10 @@ update_before_start = True
 dont_sell_items = [SRS, NS]
 should_save_to_bank = [SRS, NS]
 
+# discord
 discord_webhook = "https://discordapp.com/api/webhooks/802486083295379467/x0D2eX1Nqk4_50ugiFGvimGVjblH6QEscfKSJca46PVIftRXA3IpgNN1o6re2VDPPrpF"
+cegel_webhook = "https://discord.com/api/webhooks/866752707612508160/zegobzGKiGlrrCscaWdc3abHDiyhB0ljNiu8xAsan-QFAv2vdPzfMtWHSCxsPhKiQAfg"
+
 log_to_file = True
 
 # auto_purchase_account

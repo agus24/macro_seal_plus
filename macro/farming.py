@@ -1,15 +1,19 @@
+import importlib
+
 from datetime import datetime, timedelta
 import keyboard
 import pywinauto as p
 from time import sleep
 
-from core import macro
-from core import seal
+from core import macro, discord, seal
 from core.logger import Logger
 from core.constants import *
 from core.exceptions import ExitMenuException
 
 import config
+
+
+importlib.reload(discord)
 
 
 class Farming():
@@ -30,6 +34,8 @@ class Farming():
         self.logger = Logger(self.user_id, "general_farming_")
 
         self.logger.log("Starting General Farming")
+
+        discord.send_to_cegel_webhook(f"Starting general farming for id: `{self.user_id}`")
 
         self.excluded_items = DONT_SELL
         self.excluded_items.extend(config.dont_sell_items)
@@ -183,6 +189,8 @@ class Farming():
             self.move_to_bank(save_to_bank)
 
     def move_to_bank(self, slots):
+        item_quantity = len(slots)
+        discord.send_to_cegel_webhook(f"[{self.user_id}] Sending to bank {item_quantity} items.")
         macro.open_bank()
         for slot in slots:
             macro.move_to_bank(slot)

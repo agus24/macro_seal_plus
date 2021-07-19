@@ -5,9 +5,8 @@ import time
 
 from core.exceptions import ExitMenuException
 
-from window.ui import MainMenu
-
 from update import run_update
+from window.ui import MainMenu
 
 os.system('cls')
 
@@ -16,7 +15,7 @@ try:
     if config.update_before_start:
         run_update()
 except:
-    run_update()
+    run_update(force=True)
 
 print_waiting_process = True
 print_waiting_memory = True
@@ -38,12 +37,14 @@ def get_memory_availability():
     addr = pointer + int(0x5f0)
     return pymem.memory.read_int(pc, addr)
 
+
 def load_module(inputData):
-    from macro import cegel_farm, farming, auto_refine
+    from macro import cegel_farm, farming, auto_refine, potion
 
     importlib.reload(cegel_farm)
     importlib.reload(farming)
     importlib.reload(auto_refine)
+    importlib.reload(potion)
 
     if inputData == "1":
         cegel_farm.CegelFarm().start()
@@ -51,6 +52,9 @@ def load_module(inputData):
         farming.Farming().start()
     elif inputData == "3":
         auto_refine.AutoRefine().start()
+    elif inputData == "4":
+        potion.Potion().start()
+
 
 def start_menu():
     print("MACRO READY!")
@@ -58,7 +62,8 @@ def start_menu():
         "Menu: \n",
         "1. Cegel Farming\n",
         "2. General Farming\n",
-        "3. Auto Refine\n"
+        "3. Auto Refine\n",
+        "4. Potion\n",
     )
     inputData = input("Answer ? ") or "0"
 
@@ -72,10 +77,10 @@ def start_menu():
 
     time.sleep(0.5)
 
-# MainMenu().start()
+
 while True:
     pm = pymem.Pymem()
-    if getProcess() :
+    if getProcess():
         process = getProcess()
         pid = process.th32ProcessID
         pc = pymem.process.open(pid)

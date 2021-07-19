@@ -106,10 +106,10 @@ def close_bank():
     seal.moveMouse(477, 563)
     mouseClick()
 
+    p.keyboard.send_keys("{VK_ESCAPE}")
+
     seal.moveMouse(329, 120)
     mouseClick()
-
-    p.keyboard.send_keys("{VK_ESCAPE}")
 
 
 def move_to_bank(slot):

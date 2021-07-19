@@ -18,7 +18,7 @@ def run_update(force = False):
     with open("update.zip", 'wb') as file:
         file.write(r.content)
 
-    
+
     print("Extracting File.")
     with zipfile.ZipFile("update.zip", 'r') as zip_ref:
         zip_ref.extractall("./update")
