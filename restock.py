@@ -10,20 +10,10 @@ sending_discord = True
 
 user_list = [
     {
-        "username": "agus24",
-        "password": "Rahasia24",
-        "password_bank": "rahasia",
-    },
-    {
-        "username": "agus244",
-        "password": "rahasia",
-        "password_bank": "1111",
-    },
-    {
-        "username": "agus24444",
-        "password": "rahasia",
-        "password_bank": "rahasia",
-    },
+        "username": "",
+        "password": "",
+        "password_bank": "",
+    }
 ]
 
 targeted_item = [
