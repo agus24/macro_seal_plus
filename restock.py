@@ -4,17 +4,11 @@ import re
 
 from time import sleep
 from datetime import datetime
+from config import restock_accounts
+from core.logger import Logger, restock_send_to_discord
 
 
-sending_discord = True
-
-user_list = [
-    {
-        "username": "",
-        "password": "",
-        "password_bank": "",
-    }
-]
+logger = Logger(user_id=0, file_name="restock_check")
 
 targeted_item = [
     {"item_id": 21084, "item_name": "Manual G20"},
@@ -24,7 +18,7 @@ targeted_item = [
 
 def get_active_users():
     users = []
-    for user in user_list:
+    for user in restock_accounts:
         users.append(user['username'])
 
     return users
@@ -45,7 +39,7 @@ def get_cookies(user):
 
 
 def get_item_list():
-    cookies = get_cookies(user_list[0])
+    cookies = get_cookies(restock_accounts[0])
 
     url = "https://seal-gladius.com/itemmall-dataa"
     response = requests.post(url, data={"page": 1, "jenis": 7}, cookies=cookies).content.decode("utf-8")
@@ -87,10 +81,10 @@ def buy_item():
     url = "https://seal-gladius.com/itemmall-bayarr"
 
     cookies_list = {}
-    for user in user_list:
+    for user in restock_accounts:
         cookies_list[user['username']] = get_cookies(user)
 
-    for user in user_list:
+    for user in restock_accounts:
         data = {
             "passbank": user['password_bank'],
             "idmall": targeted_item[0]['item_id'],
@@ -133,7 +127,7 @@ def parse_output(output):
 
 
 def send_discord_message(message):
-    if not sending_discord:
+    if not restock_send_to_discord:
         return
 
     time = datetime.strftime(datetime.now(), '%Y-%m-%d_%H:%M')
