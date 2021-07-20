@@ -4,8 +4,8 @@ import re
 
 from time import sleep
 from datetime import datetime
-from config import restock_accounts
-from core.logger import Logger, restock_send_to_discord
+from config import restock_accounts, restock_send_to_discord
+from core.logger import Logger
 
 
 logger = Logger(user_id=0, file_name="restock_check")
