@@ -201,6 +201,7 @@ class Farming():
             "\n",
             "[CTRL + -] START MACRO",
             "[CTRL + ] ] Set Multiple Target",
+            "[CTRL + .] Check item slot 1",
             "[CTRL + =] EXIT",
             "[-] SHOW / CHECK CURRENT TARGET",
             "[/] REGISTER TARGET",
@@ -241,6 +242,9 @@ class Farming():
                     self.targets = [int(dt) for dt in data.split(",")]
                     self.current_target = 0
                     print(self.targets)
+
+                if keyboard.is_pressed('.'):
+                    print(seal.getItemValue()[0])
 
             if keyboard.is_pressed("-"):
                 print(str(self.targets))
