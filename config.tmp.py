@@ -24,12 +24,12 @@ pd_grs_per_purchase = 5  # pd grs sekali beli
 max_tempa = 11  # target tempa (kalo 11 sampe +11 klo 12 sampe +12)
 
 # restock accounts
-restock_accounts = {
+restock_accounts = [
     {
         "username": "",
         "password": "",
         "password_bank": "",
     }
-}
+]
 
 restock_send_to_discord = True
