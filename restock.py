@@ -81,22 +81,21 @@ def buy_item():
     url = "https://seal-gladius.com/itemmall-bayarr"
 
     cookies_list = {}
-    for user in restock_accounts:
-        cookies_list[user['username']] = get_cookies(user)
+    for i in range(0, 200):
+        for user in restock_accounts:
+            cookies = get_cookies(user)
+            data = {
+                "passbank": user['password_bank'],
+                "idmall": targeted_item[0]['item_id'],
+                "is_ajax": 1
+            }
 
-    for user in restock_accounts:
-        data = {
-            "passbank": user['password_bank'],
-            "idmall": targeted_item[0]['item_id'],
-            "is_ajax": 1
-        }
+            response = requests.post(url, data=data, cookies=cookies)
+            send_discord_message(f"Purchasing item **{targeted_item[0]['item_name']}** for: **{user['username']}**")
 
-        response = requests.post(url, data=data, cookies=cookies_list[user['username']])
-        send_discord_message(f"Purchasing item **{targeted_item[0]['item_name']}** for: **{user['username']}**")
-
-        data['idmall'] = targeted_item[1]['item_id']
-        response = requests.post(url, data=data, cookies=cookies_list[user['username']])
-        send_discord_message(f"Purchasing item **{targeted_item[1]['item_name']}** for: **{user['username']}**")
+            data['idmall'] = targeted_item[1]['item_id']
+            response = requests.post(url, data=data, cookies=cookies)
+            send_discord_message(f"Purchasing item **{targeted_item[1]['item_name']}** for: **{user['username']}**")
 
 
 def parse_output(output):

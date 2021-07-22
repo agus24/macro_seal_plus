@@ -29,7 +29,7 @@ class Reborn():
         self.next_buff_time = datetime.now()
         self.click_interval = datetime.now()
 
-        self.click_gap = 5
+        self.click_gap = 10
 
         self.user_id = seal.getUserId()
         self.logger = Logger(self.user_id, "reborn_")
@@ -90,6 +90,15 @@ class Reborn():
 
         return False
 
+    def use_exp_party(self):
+        macro.moveMouse(568, 463)
+        sleep(0.2)
+        macro.mouseClick()
+        sleep(0.2)
+        seal.moveMouse(*REFINE_OK_CONFIRM)
+        sleep(0.2)
+        macro.mouseClick()
+
     def start_hunt(self):
         self.close_if_shop_open()
         target = seal.getCurrentTargetArrow()
@@ -122,6 +131,7 @@ class Reborn():
                 sleep(1)
                 self.keyboard.send_keys('{5 down}' '{5 up}')
                 sleep(1)
+                self.use_exp_party()
                 return
 
             inventory = seal.getItemValue()
