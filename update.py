@@ -54,7 +54,7 @@ def should_update():
     print("Current Version : ", current_version)
     print("Server Version : ", new_version)
 
-    if current_version != new_version:
+    if current_version <= new_version:
         return True
 
     return False

@@ -14,7 +14,7 @@ try:
     import config
     if config.update_before_start:
         run_update()
-except:
+except ImportError:
     run_update(force=True)
 
 print_waiting_process = True
@@ -39,12 +39,13 @@ def get_memory_availability():
 
 
 def load_module(inputData):
-    from macro import cegel_farm, farming, auto_refine, potion
+    from macro import cegel_farm, farming, auto_refine, potion, reborn
 
     importlib.reload(cegel_farm)
     importlib.reload(farming)
     importlib.reload(auto_refine)
     importlib.reload(potion)
+    importlib.reload(reborn)
 
     if inputData == "1":
         cegel_farm.CegelFarm().start()
@@ -54,6 +55,8 @@ def load_module(inputData):
         auto_refine.AutoRefine().start()
     elif inputData == "4":
         potion.Potion().start()
+    elif inputData == "5":
+        reborn.Reborn().start()
 
 
 def start_menu():
@@ -64,8 +67,9 @@ def start_menu():
         "2. General Farming\n",
         "3. Auto Refine\n",
         "4. Potion\n",
+        "5. Reborn\n",
     )
-    inputData = input("Answer ? ") or "0"
+    inputData = input("Choose ? ") or "0"
 
     try:
         load_module(inputData)
